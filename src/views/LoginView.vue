@@ -1,7 +1,7 @@
 <!--Login page-->
 <template>
+    <Header></Header>
     <div class="login">
-        <Header></Header>
         <div class="login-form">
         <h1>Login</h1>
         <form>
@@ -20,7 +20,12 @@
 </template>
 
 <script>
+import Header from '@/components/HeaderComponent.vue'
 export default {
+    name: 'LoginView',
+    components: {
+        Header
+    }
 
 }
 </script>

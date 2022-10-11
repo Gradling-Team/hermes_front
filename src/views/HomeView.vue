@@ -2,6 +2,12 @@
 <template>
   <div class="home">
     <Header></Header>
+    <div class="home-content">
+      <div class="home-content-text">
+        <h1>WELCOME TO HERMES</h1>
+        <p>Here you can find the best deals for your next trip</p>
+      </div>
+    </div>
   </div>
 </template>
 
