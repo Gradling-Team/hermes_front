@@ -4,7 +4,6 @@
             <img src="../assets/logo.png" alt="logo">
         </div>
         <div class="Hermes">
-            <router-link>><a href="#">Hermes</a></router-link>
         </div>
         <div class="login">
             <button>Login</button>

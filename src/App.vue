@@ -1,7 +1,13 @@
 <template>
+  
   <router-view/>
-</template>
 
+</template>
+<script>
+export default {
+  name: 'App'
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -9,5 +15,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  p{
+    color: blue
+  }
 }
 </style>
