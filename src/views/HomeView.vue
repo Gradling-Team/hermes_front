@@ -21,10 +21,6 @@
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
-p{
-  color: red;
-
-}
 </style>>
