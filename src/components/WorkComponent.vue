@@ -2,16 +2,19 @@
     <div class="work">
         <h1> WorkSpace</h1>
         <WareHouseMan/>
+        <ReceptionistMan/>
     </div>
 </template>
 
 <script>
 import WareHouseMan from '@/components/role/WareHouseMan.vue'
+import ReceptionistMan from './role/ReceptionistMan.vue';
 
 export default {
     components: {
-         WareHouseMan 
-        }
+    WareHouseMan,
+    ReceptionistMan
+}
 }
 </script>
 
