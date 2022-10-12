@@ -20,7 +20,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   p{
-    color: blue
+    color: black;
   }
 }
 </style>
