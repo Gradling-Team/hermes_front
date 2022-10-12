@@ -59,17 +59,18 @@ export default {
     methods:{
         searchID(){
             this.DisplayIDResult = true 
-            console.log('http://localhost:3000/Hermes_WMS_api/' + this.id,)
-            fetch('http://localhost:3000/Hermes_WMS_api/' + this.id,{method: 'GET'}).then((response) => response.json()).then(data => {
-                this.IDResult = data
+            console.log('http://localhost:3000/EP/'+this.id)
+            
+            fetch('http://localhost:3000/EP/' + this.id,{method: 'GET'}).then((response) => response.json()).then(data => {
+                return console.log(JSON.stringify(data))
             })
 
         },
         searchName(){
             this.DisplayNameResult = true
             console.log("searchName")
-            console.log('http://localhost:3000/Hermes_WMS_api/' + this.name,)
-            fetch('http://localhost:3000/Hermes_WMS_api/' + this.name,{method: 'GET'}).then((response) => response.json()).then(data => {
+            console.log('http://localhost:3000/EP/' + this.name,)
+            fetch('http://localhost:3000/EP/' + this.name,{method: 'GET'}).then((response) => response.json()).then(data => {
                 this.nameResult = data
             })
         },
