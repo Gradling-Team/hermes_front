@@ -20,10 +20,10 @@
             </div>
             <div class="line">
                 <div  id="confirm">
-                    <button>Confirm</button>
+                    <button @click="confirm" >Confirm</button>
                 </div>
                 <div id="report">
-                    <button>Report</button>
+                    <button @click="report">Report</button>
                 </div>
             </div>
         </div>
@@ -42,6 +42,26 @@ export default {
                 dest: "R748",
             }
 
+        }
+    },
+    methods:{
+        confirm(){
+            fetch('http://localhost:3000/confirm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.task)
+            })
+            fetch('http://localhost:3000/getTask', {method: 'GET'}).then((response) => response.json()).then(data => {
+                this.task = data
+            })
+        },
+        report(){
+            fetch('http://localhost:3000/getTask', {method: 'GET'}).then((response) => response.json()).then(data => {
+                this.task = data
+            })
+            console.log("report")
         }
     }
 

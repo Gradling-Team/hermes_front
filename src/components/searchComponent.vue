@@ -5,8 +5,8 @@
             <div id="searchById">
                 <div class="searchBare">
                     <label>Enter a product ID:</label>
-                    <input type="text" id="searchbar" placeholder="Search">
-                    <button id="searchbutton">Search</button>
+                    <input type="text" id="searchbar" placeholder="Search" v-model="id">
+                    <button id="searchbutton" @click="searchID" >Search</button>
                 </div>
                 <div v-if="displayIDResult" class="result">
                         {{IDResult.id}}
@@ -22,12 +22,12 @@
             <div id="searchByName">
                 <div class="searchBare">
                     <label>Enter a product Name:</label>
-                    <input type="text" id="searchbar" placeholder="Search">
-                    <button id="searchbutton">Search</button>
+                    <input type="text" id="searchbar" placeholder="Search" v-model="name">
+                    <button id="searchbutton" @click="searchName">Search</button>
                 </div>
                 <div class="result">
                     <div id="product" v-for="product in nameResult" :key="product.id">
-                        <p>
+                        <p :v-if="displayNameResult">
                             {{product.id}}
                             {{product.name}}
                             {{product.lot}}
@@ -44,17 +44,36 @@
 <script>
 export default {
     name: 'searchComponent',
-data(){
-    return {
-        nameResult: [
-            {id: 1, name: 'product 1', lot: 111, storage:"R748", peremption:"11/11/11" },
-            {id: 2, name: 'product 1', lot: 111, storage:"R748", peremption:"11/11/11" },
+    data(){
+        return {
+            nameResult: [
+                {id: 1, name: 'product 1', lot: 111, storage:"R748", peremption:"11/11/11" },
+                {id: 2, name: 'product 1', lot: 111, storage:"R748", peremption:"11/11/11" },],
+            displayNameResult: false,
+            name:"",
+            IDResult:{id: 1, name: 'product 1', lot: 111, storage:"R748", peremption:"11/11/11" },
+            displayIDResult: false,
+            id:""
+        }
+    },
+    methods:{
+        searchID(){
+            this.DisplayIDResult = true 
+            console.log('http://localhost:3000/Hermes_WMS_api/' + this.id,)
+            fetch('http://localhost:3000/Hermes_WMS_api/' + this.id,{method: 'GET'}).then((response) => response.json()).then(data => {
+                this.IDResult = data
+            })
 
-        ],
-        IDResult:{id: 1, name: 'product 1', lot: 111, storage:"R748", peremption:"11/11/11" },
-        DisplayIDResult: false
+        },
+        searchName(){
+            this.DisplayNameResult = true
+            console.log("searchName")
+            console.log('http://localhost:3000/Hermes_WMS_api/' + this.name,)
+            fetch('http://localhost:3000/Hermes_WMS_api/' + this.name,{method: 'GET'}).then((response) => response.json()).then(data => {
+                this.nameResult = data
+            })
+        },
     }
-}
 }
 </script>
 
