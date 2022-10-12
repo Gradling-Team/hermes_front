@@ -1,28 +1,24 @@
 <template>
     <div id="reception">
-        <h2>Add a new product</h2>
+        <h2>Post a new type of product</h2>
         <div id="taskBoard">
             <div class="line">
-                <div class="element" id="id">
-                    <label>Enter a product ID:</label>
-                    <input type="text" id="productID" placeholder="ID" v-model="product.id">
+                <div class="element" id="name">
+                    <label>Enter a name:</label>
+                    <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.name">
                 </div>
-                <div class="element" id="quantity">
-                    <label>Enter a product quantity:</label>
-                    <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.quantity">
+                <div class="element" id="cost">
+                    <label>Enter a cost:</label>
+                    <input type="text" id="productID" placeholder="ID" v-model="product.cost">
+                </div>
+                <div class="element" id="retail">
+                    <label>Enter a retail number:</label>
+                    <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.retail">
                 </div>
             </div>
             <div class="line">
                 <div  id="confirm">
                     <button @click="confirm">Confirm</button>
-                </div>
-                <div id="report">
-                    <button @click="report">Report</button>
-                </div>
-            </div>
-            <div class="line">
-                <div class="element" id="dest">
-                    <p>Dest: {{product.dest}}</p>
                 </div>
             </div>
         </div>
@@ -35,9 +31,9 @@ export default {
     data(){
         return {
             product:{
-                id: 1,
-                quantity: 1,
-                dest: "R748",
+                name:{},
+                quantity: 0,
+                retail: 0,
             },
             data:{}
 
@@ -45,15 +41,12 @@ export default {
     },
     methods:{
         confirm(){
-            fetch('http://localhost:3000/+ product.id', {methods:'GET'}).then((response) => response.json()).then(data => {
-                this.data = data
-            })
             fetch('http://localhost:3000/addProduct', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.data)
+                body: JSON.stringify(this.product)
             })
         }
 
