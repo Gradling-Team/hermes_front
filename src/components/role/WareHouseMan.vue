@@ -1,6 +1,6 @@
 <template>
     <div id="work">
-        <h2>Tasks</h2>
+        <h2>Warehouseman - Tasks</h2>
         <div id="taskBoard">
             <div class="line">
                 <div class="element" id="id">

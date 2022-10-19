@@ -1,28 +1,29 @@
 <template>
-    <div id="reception">
-        <h2>Receptionnist - Add a new product</h2>
+    <div id="work">
+        <h2>DeliveryMan - Delivery</h2>
         <div id="taskBoard">
             <div class="line">
                 <div class="element" id="id">
-                    <label>Enter a product ID:</label>
-                    <input type="text" id="productID" placeholder="ID" v-model="product.id">
+                    <p>ID: {{task.id}}</p>
                 </div>
                 <div class="element" id="quantity">
-                    <label>Enter a product quantity:</label>
-                    <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.quantity">
+                    <p>Quantity: {{task.quantity}}</p>
+                </div>
+            </div>
+            <div class="line">
+                <div class="element" id="from">
+                    <p>Location: {{task.location}}</p>
+                </div>
+                <div class="element" id="dest">
+                    <p>Dest: {{task.dest}}</p>
                 </div>
             </div>
             <div class="line">
                 <div  id="confirm">
-                    <button @click="confirm">Confirm</button>
+                    <button @click="confirm" >Confirm</button>
                 </div>
                 <div id="report">
                     <button @click="report">Report</button>
-                </div>
-            </div>
-            <div class="line">
-                <div class="element" id="dest">
-                    <p>Dest: {{product.dest}}</p>
                 </div>
             </div>
         </div>
@@ -31,39 +32,44 @@
 
 <script>
 export default {
-    name: 'ReceptionistMan',
+    name: 'WorkComponent',
     data(){
         return {
-            product:{
+            task:{
                 id: 1,
                 quantity: 1,
+                location: "R748",
                 dest: "R748",
-            },
-            data:{}
+            }
 
         }
     },
     methods:{
         confirm(){
-            fetch('http://localhost:3000/+ product.id', {methods:'GET'}).then((response) => response.json()).then(data => {
-                this.data = data
-            })
-            fetch('http://localhost:3000/addProduct', {
+            fetch('http://localhost:3000/confirm', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.data)
+                body: JSON.stringify(this.task)
             })
+            fetch('http://localhost:3000/getTask', {method: 'GET'}).then((response) => response.json()).then(data => {
+                this.task = data
+            })
+        },
+        report(){
+            fetch('http://localhost:3000/getTask', {method: 'GET'}).then((response) => response.json()).then(data => {
+                this.task = data
+            })
+            console.log("report")
         }
-
     }
 
 }
 </script>
 
 <style lang="scss" scoped>
-#reception{
+#work{
     background-color: beige;
     display: flex;
     flex-direction: column;
@@ -89,9 +95,6 @@ export default {
                 margin: 1em auto 1em auto;
                 background-color: aliceblue;
                 width: 30%;        
-                input{
-                    width: 100%;
-                }
             }
             #confirm, #report{
                 text-align: center;

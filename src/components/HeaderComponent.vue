@@ -1,7 +1,7 @@
 <template>
     <header>
         <div id="logo" class="boxH">
-            <img src="../assets/logo.png" alt="logo">
+            <img src="../assets/logo.jpg" alt="logo">
         </div>
         <div id="Hermes" class="boxH">
             <router-link to="/">Hermes-WMS</router-link>

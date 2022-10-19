@@ -4,6 +4,9 @@
         <DataProduct/>
         <WareHouseMan/>
         <ReceptionistMan/>
+        <DeliveryMan/>
+        <CustomerService/>
+        <Accountant/>
 
     </div>
 </template>
@@ -11,13 +14,19 @@
 <script>
 import WareHouseMan from '@/components/role/WareHouseMan.vue'
 import ReceptionistMan from './role/ReceptionistMan.vue'
-import DataProduct from '@/components/DataProduct.vue'
+import DataProduct from '@/components/role/DataProduct.vue'
+import DeliveryMan from '@/components/role/DeliveryMan.vue'
+import Accountant from '@/components/role/AccountantService.vue'
+import CustomerService from '@/components/role/CustomerService.vue'
 
 export default {
     components: {
         WareHouseMan,
         ReceptionistMan,
-        DataProduct
+        DataProduct,
+        DeliveryMan,
+        Accountant,
+        CustomerService,
     }
 }
 </script>

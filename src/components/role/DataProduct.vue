@@ -1,41 +1,26 @@
 <template>
   <div id="reception">
-    <h2>Post a new type of product</h2>
+    <h2>Admin - Post a new type of product</h2>
     <div id="taskBoard">
-      <div class="line">
-        <div class="element" id="name">
-          <label>Enter a name:</label>
-          <input
-            type="text"
-            id="productQuantity"
-            placeholder="Quantity"
-            v-model="product.name"
-          />
+        <div class="line">
+            <div class="element" id="name">
+                <label>Enter a name:</label>
+                <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.name">
+            </div>
+            <div class="element" id="cost">
+                <label>Enter a cost:</label>
+                <input type="text" id="productID" placeholder="ID" v-model="product.cost">
+            </div>
+            <div class="element" id="retail">
+                <label>Enter a retail number:</label>
+                <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.retail">
+            </div>
         </div>
-        <div class="element" id="cost">
-          <label>Enter a cost:</label>
-          <input
-            type="text"
-            id="productID"
-            placeholder="ID"
-            v-model="product.cost"
-          />
+        <div class="line">
+            <div  id="confirm">
+                <button @click="confirm">Confirm</button>
+            </div>
         </div>
-        <div class="element" id="retail">
-          <label>Enter a retail number:</label>
-          <input
-            type="text"
-            id="productQuantity"
-            placeholder="Quantity"
-            v-model="product.retail"
-          />
-        </div>
-      </div>
-      <div class="line">
-        <div id="confirm">
-          <button @click="confirm">Confirm</button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
