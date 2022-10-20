@@ -37,7 +37,7 @@
               {{ product.PRICE }}$ | Cost : {{ product.COST }}$ |
             </p>
           </div>
-          <div v-if="nameResult === 'unauthorized'" id="product">No result</div>
+          <div v-if="nameResult === 'wrong'" id="product">No result</div>
         </div>
       </div>
     </div>
@@ -58,47 +58,44 @@ export default {
   },
   methods: {
     searchID() {
-      let xhr = new XMLHttpRequest();
-      xhr.open("GET", "/api/users/" + this.id, true);
-      xhr.onload = () => {
-        if (xhr.status == 200) {
-          this.displayIDResult = true;
-          this.IDResult = JSON.parse(xhr.responseText);
-          console.log(xhr.responseText);
-        } else {
-          this.displayIDResult = false;
-        }
-
-      this.DisplayIDResult = true;
-      console.log("searchName");
-      console.log("/api/product/");
-      fetch("/api/product/" + this.name, { method: "GET" })
-        .then((response) => response.json())
-        .then((data) => {
-          if(data != "unauthorized"){
-          this.nameResult = data;
-          console.log(data);}
-          else{
+        this.DisplayIDResult = true;
+        console.log("searchID");
+        console.log("/api/ep/");
+        fetch("/api/ep/" + localStorage.getItem("token") + "/" + this.name, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
             this.nameResult = data;
-            alert('session expired')
-          }
-        });
-      };
-    },
+            console.log(data);
+            if(this.nameResult.length > 0 ){
+              this.displayIDResult = true;
+            }
+          });
+      },
     searchName() {
       console.log("searchName");
       console.log("/api/product/");
-      fetch("/api/product/" + this.name, { method: "GET" })
-        .then((response) => response.json())
-        .then((data) => {
-          if(data != "unauthorized"){
-          this.nameResult = data;
-          console.log(data);}
-          else{
+      // get item from api
+    
+        fetch(
+          "/api/product/" + localStorage.getItem("token") + "/" + this.name,
+          { method: "GET" }
+        )
+          .then((response) => response.json())
+          .then((data) => {
             this.nameResult = data;
-            alert('session expired');
-          }
-        });
+            if (data != 'Token not found' && data != 'Token expired' && data != 'unauthorized') {
+              console.log(data);
+            } else if (data === 'Token expired') {
+              alert("session expired");
+              this.nameResult = 'wrong';
+            }else{
+              alert("Invalid Token");
+              this.nameResult = 'wrong';
+            }
+          });
+        
     },
   },
 };
