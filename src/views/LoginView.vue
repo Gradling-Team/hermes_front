@@ -5,18 +5,16 @@
         <h1>Login</h1>
         <form>
             <div class="formGroup">
-                <label for="ref">Warehouse referece</label>
-                <input class="formControl" id="ref" required placeholder="reference">
-            </div>
-            <div class="formGroup">
                 <label for="login">Login</label>
-                <input class="formControl" id="login" required placeholder="login">
+                <input class="formControl" id="login" type="text" v-model="ID" required placeholder="login">
             </div>
             <div class="formGroup">
                 <label for="password">Password</label>
-                <input type="password" class="formControl" required id="password" placeholder="Password">
+                <input type="password" class="formControl" v-model="pass" required id="password" placeholder="Password">
             </div>
-            <button type="submit" class="btn">Login</button>
+            <div @click="setToken(ID,pass)" class="btn">Login</div>
+            
+            
         </form>
     </div>
 </template>
@@ -25,8 +23,21 @@
 import Header from '@/components/HeaderComponent.vue'
 export default {
     name: 'LoginView',
+    data(){
+        return{
+            ID:'',
+            pass:'',
+            token:localStorage.getItem("token"),
+        }
+    },
     components: {
         Header
+    },
+    methods:{
+        setToken(id,pass){
+            fetch('./api/users/token/'+id+'/'+pass).then((response)=> response.json()).then((data)=> {localStorage.setItem("token",data);
+        console.log(this.token);});
+            },
     }
 
 }

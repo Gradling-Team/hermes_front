@@ -9,10 +9,11 @@
           <button id="searchbutton" @click="searchID">Search</button>
         </div>
         <div v-if="displayIDResult" class="result">
-          {{ IDResult.id }}
-          {{ IDResult.idParcel }}
-          {{ IDResult.idProduct }}
-          {{ IDResult.location }}
+          {{ IDResult.ID_Ep }}
+          {{ IDResult.ID_prod }}
+          {{ IDResult.ID_lot }}
+          {{ IDResult.ID_ORDER }}
+          {{ IDResult.ID_AREA }}
         </div>
         <div v-else class="result">
           <p>No result</p>
@@ -31,13 +32,12 @@
         </div>
         <div class="result">
           <div id="product" v-for="product in nameResult" :key="product.id">
-            <p :v-if="displayNameResult">
-              {{ product.id }}
-              {{ product.idParcel }}
-              {{ product.idProduct }}
-              {{ product.location }}
+            <p v-if="nameResult != 'unauthorized'">
+              {{ product.ID_prod }} | {{ product.Nom }} | Price :
+              {{ product.PRICE }}$ | Cost : {{ product.COST }}$ |
             </p>
           </div>
+          <div v-if="nameResult === 'unauthorized'" id="product">No result</div>
         </div>
       </div>
     </div>
@@ -49,31 +49,9 @@ export default {
   name: "searchComponent",
   data() {
     return {
-      nameResult: [
-        {
-          id: 1,
-          name: "product 1",
-          lot: 111,
-          storage: "R748",
-          peremption: "11/11/11",
-        },
-        {
-          id: 2,
-          name: "product 1",
-          lot: 111,
-          storage: "R748",
-          peremption: "11/11/11",
-        },
-      ],
-      displayNameResult: false,
+      nameResult: [],
       name: "",
-      IDResult: {
-        id: 1,
-        name: "product 1",
-        lot: 111,
-        storage: "R748",
-        peremption: "11/11/11",
-      },
+      IDResult: [],
       displayIDResult: false,
       id: "",
     };
@@ -81,7 +59,7 @@ export default {
   methods: {
     searchID() {
       let xhr = new XMLHttpRequest();
-      xhr.open("GET", "http://localhost:3000/EP/" + this.id, true);
+      xhr.open("GET", "/api/users/" + this.id, true);
       xhr.onload = () => {
         if (xhr.status == 200) {
           this.displayIDResult = true;
@@ -90,17 +68,36 @@ export default {
         } else {
           this.displayIDResult = false;
         }
-      };
-      xhr.send();
-    },
-    searchName() {
-      this.DisplayNameResult = true;
+
+      this.DisplayIDResult = true;
       console.log("searchName");
-      console.log("http://localhost:3000/EP/");
-      fetch("http://localhost:3000/EP/" + this.name, { method: "GET" })
+      console.log("/api/product/");
+      fetch("/api/product/" + this.name, { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
+          if(data != "unauthorized"){
           this.nameResult = data;
+          console.log(data);}
+          else{
+            this.nameResult = data;
+            alert('session expired')
+          }
+        });
+      };
+    },
+    searchName() {
+      console.log("searchName");
+      console.log("/api/product/");
+      fetch("/api/product/" + this.name, { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => {
+          if(data != "unauthorized"){
+          this.nameResult = data;
+          console.log(data);}
+          else{
+            this.nameResult = data;
+            alert('session expired');
+          }
         });
     },
   },
