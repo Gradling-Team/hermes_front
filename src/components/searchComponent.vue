@@ -58,10 +58,10 @@ export default {
   },
   methods: {
     searchID() {
-        this.DisplayIDResult = true;
+        
         console.log("searchID");
         console.log("/api/ep/");
-        fetch("/api/ep/" + localStorage.getItem("token") + "/" + this.name, {
+        fetch("/api/ep/" + localStorage.getItem("token") + "/" + this.id, {
           method: "GET",
         })
           .then((response) => response.json())

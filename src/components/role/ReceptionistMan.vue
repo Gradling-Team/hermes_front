@@ -4,25 +4,31 @@
         <div id="taskBoard">
             <div class="line">
                 <div class="element" id="id">
-                    <label>Enter a product ID:</label>
-                    <input type="text" id="productID" placeholder="ID" v-model="product.id">
+                    <label>Enter a reception ID:</label>
+                    <input type="text" id="receptionID" placeholder="ID" v-model="reception.id">
                 </div>
-                <div class="element" id="quantity">
-                    <label>Enter a product quantity:</label>
-                    <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.quantity">
+                <div class="element" id="statusCode">
+                    <label>Enter the statuscode:</label>
+                    <input type="text" id="receptionStatusCode" placeholder="Statuscode" v-model="reception.statuscode">
+                </div>
+            </div>
+            <div class="line">
+                <div class="element" id="source">
+                    <label>Enter the source warehouse:</label>
+                    <input type="text" id="receptionSource" placeholder="Source" v-model="reception.source">
+                </div>
+                <div class="element" id="destination">
+                    <label>Enter the destination warehouse:</label>
+                    <input type="text" id="receptionDestination" placeholder="Destination" v-model="reception.destination">
                 </div>
             </div>
             <div class="line">
                 <div  id="confirm">
                     <button @click="confirm">Confirm</button>
+                    <!--when submitted send datenow-->
                 </div>
                 <div id="report">
                     <button @click="report">Report</button>
-                </div>
-            </div>
-            <div class="line">
-                <div class="element" id="dest">
-                    <p>Dest: {{product.dest}}</p>
                 </div>
             </div>
         </div>
@@ -34,10 +40,10 @@ export default {
     name: 'ReceptionistMan',
     data(){
         return {
-            product:{
+            reception:{
                 id: 1,
-                quantity: 1,
-                dest: "R748",
+                source: "R748",
+                destination: "R748",
             },
             data:{}
 
