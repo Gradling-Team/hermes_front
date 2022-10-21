@@ -5,15 +5,15 @@
         <div class="line">
             <div class="element" id="name">
                 <label>Enter a name:</label>
-                <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.name">
+                <input type="text" id="productQuantity" placeholder="Nom" v-model="product.name">
             </div>
             <div class="element" id="cost">
                 <label>Enter a cost:</label>
-                <input type="text" id="productID" placeholder="ID" v-model="product.cost">
+                <input type="text" id="productID" placeholder="COST" v-model="product.cost">
             </div>
             <div class="element" id="retail">
-                <label>Enter a retail number:</label>
-                <input type="text" id="productQuantity" placeholder="Quantity" v-model="product.retail">
+                <label>Enter price:</label>
+                <input type="text" id="productPrice" placeholder="PRICE" v-model="product.price">
             </div>
         </div>
         <div class="line">
@@ -31,29 +31,28 @@ export default {
   data() {
     return {
       product: {
-        name: {},
-        quantity: 0,
-        retail: 0,
+        name: "",
+        cost: null,
+        price: null,
       },
       data: {},
     };
   },
   methods: {
     confirm() {
-      this.data = {
-        name: this.product.name,
-        cost: this.product.cost,
-        retail: this.product.retail,
-      };
-      console.log(this.data);
-      let xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://localhost:3000/productData", true);
-      xhr.setRequestHeader("Content-Type", "application/json");
-      xhr.setRequestHeader("accept", "application/json");
-      xhr.send(JSON.stringify(this.data));
-    },
+      fetch('/api/product/'+localStorage.getItem("token"), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          Nom: this.product.name,
+          COST: this.product.cost,
+          PRICE: this.product.price
+        })
+    });
   },
-};
+}}
 </script>
 
 <style lang="scss" scoped>

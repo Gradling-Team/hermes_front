@@ -41,35 +41,31 @@ export default {
     data(){
         return {
             order:{
-                destination: "R748",
-                month: 12,
-                day: 12,
-                year: 2022
+                destination: "",
+                month: null,
+                day: null,
+                year: null,
             }
 
         }
     },
     methods:{
         confirm(){
-            fetch('http://localhost:3000/confirm', {
+            fetch('/api/tickets/'+localStorage.getItem("token"), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.task)
-            })
-            fetch('http://localhost:3000/getTask', {method: 'GET'}).then((response) => response.json()).then(data => {
-                this.task = data
-            })
-        },
-        report(){
-            fetch('http://localhost:3000/getTask', {method: 'GET'}).then((response) => response.json()).then(data => {
-                this.task = data
-            })
-            console.log("report")
-        }
-    }
+                body: JSON.stringify({
+                    
 
+                    DELIVERYDATE: this.order.day + "-"+ this.order.month +"-"+this.order.year+ " " +this.order.month + ":"+ this.order.month +":"+this.order.month ,
+                    DESTINATION: this.order.destination
+                })
+            });
+
+}
+}
 }
 </script>
 

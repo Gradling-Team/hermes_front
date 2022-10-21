@@ -37,7 +37,7 @@
               {{ product.PRICE }}$ | Cost : {{ product.COST }}$ |
             </p>
           </div>
-          <div v-if="nameResult === 'wrong'" id="product">No result</div>
+          <div v-if="nameResult === 'unauthorized'" id="product">No result</div>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@ export default {
   name: "searchComponent",
   data() {
     return {
-      nameResult: [],
+      nameResult: 'unauthorized',
       name: "",
       IDResult: [],
       displayIDResult: false,
@@ -64,7 +64,7 @@ export default {
         fetch("/api/ep/" + localStorage.getItem("token") + "/" + this.id, {
           method: "GET",
         })
-          .then((response) => response.json())
+          .then((response) =>response.json())
           .then((data) => {
             this.nameResult = data;
             console.log(data);
@@ -85,14 +85,17 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             this.nameResult = data;
-            if (data != 'Token not found' && data != 'Token expired' && data != 'unauthorized') {
+            if (data != 'Token not found' && data != 'Token expired' && data != 'unauthorized' && data.length>0) {
               console.log(data);
             } else if (data === 'Token expired') {
               alert("session expired");
-              this.nameResult = 'wrong';
-            }else{
+              this.nameResult = 'unauthorized';
+            }else if (data.length === 0){
+              this.nameResult = 'unauthorized';
+            }
+            else{
               alert("Invalid Token");
-              this.nameResult = 'wrong';
+              this.nameResult = 'unauthorized';
             }
           });
         
